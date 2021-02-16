@@ -20,3 +20,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('/register', 'App\Http\Controllers\RegisterController@index');
+
+Route::middleware('auth:sanctum')->post('/verify-purchase', 'App\Http\Controllers\PurchaseController@verify');
+Route::middleware('auth:sanctum')->get('/check-subscription', 'App\Http\Controllers\SubscriptionController@check');
