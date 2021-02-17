@@ -15,6 +15,6 @@ class SubscriptionController extends Controller
             PurchaseExpired::dispatch($device);
         }
         
-        return $device->purchase_status;
+        return $device->susbcription_status;
     }
 }

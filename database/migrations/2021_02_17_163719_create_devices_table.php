@@ -13,18 +13,21 @@ class CreateDevicesTable extends Migration
      */
     public function up()
     {
+
         Schema::create('devices', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('uId')->index();
-            $table->bigInteger('appId')->index();
+            $table->unsignedBigInteger('appId')->index();
             $table->string('language')->nullable();
             $table->string('os')->nullable();
             $table->string('purchase_receipt')->nullable();
             $table->enum('susbcription_status', ['active', 'expired', 'cancelled'])->nullable();
             $table->timestamp('expiry_date')->nullable();
-            $table->unique(array('uId', 'appId'));
+            $table->unique(array('uId', 'appId'));            
             $table->timestamps();
+            $table->foreign('appId')->references('id')->on('applications');
         });
+
     }
 
     /**
