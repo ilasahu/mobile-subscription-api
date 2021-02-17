@@ -18,6 +18,11 @@ class Device extends Model
 
 	protected $rules = [
         'uId' => 'required',
-        'appId' => 'required',
-	];
+        'appId' => 'required|exists:applications,id',
+    ];
+    
+    public function application()
+    {
+        return $this->hasOne(Application::class, 'id', 'appId');
+    }
 }

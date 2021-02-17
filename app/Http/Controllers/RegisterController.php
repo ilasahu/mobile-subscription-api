@@ -19,6 +19,7 @@ class RegisterController extends Controller
             if( $deviceFound ) {
                 return "register OK";
             }
+
             $device = new Device();
             $device->fill([
                 'uId' => $request->uId,
@@ -29,7 +30,6 @@ class RegisterController extends Controller
                 if( !$device->save() ) {
                     return json_encode($device->getErrors());
                 } 
-    
                 $token = $device->createToken($device->id);
                 return ['token' => $token->plainTextToken];
         } catch (Exception $e) {

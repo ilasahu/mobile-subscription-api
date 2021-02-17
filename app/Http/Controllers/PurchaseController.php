@@ -24,10 +24,10 @@ class PurchaseController extends Controller
             }
 
             if( $verifyHashResponse['result'] ) {
-                PurchaseSuccessful::dispatch($request->user(), $verifyHashResponse['expiry_date']);
+                PurchaseSuccessful::dispatch($request->user(), $verifyHashResponse['expiry_date'], $request->receipt);
                 $response = ['status' => true];
             }
-            
+
             return json_encode($response);
             
         } catch (Exception $e) {

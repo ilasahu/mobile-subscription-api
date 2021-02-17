@@ -10,23 +10,18 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class PurchaseSuccessful
+class PurchaseCanceled
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $device;
-    public $expiryDate;
-    public $receipt;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($device, $expiryDate, $receipt)
+    public function __construct()
     {
-        $this->device = $device;
-        $this->expiryDate = $expiryDate;
-        $this->receipt = $receipt;
+        //
     }
 
     /**

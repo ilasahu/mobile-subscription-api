@@ -22,6 +22,23 @@ class EventServiceProvider extends ServiceProvider
         PurchaseSuccessful::class => [
             SaveExpiryToDeviceTable::class,
         ],
+
+        PurchaseExpired::class => [
+            ChangeExpiryStatusToDeviceTable::class,
+        ],
+
+        
+        PurchaseCanceled::class => [
+            CancelDeviceSubscription::class,
+        ],
+
+        PurchaseRenewed::class => [
+            RenewDeviceSubscription::class,
+        ],
+
+        PurchaseStarted::class => [
+            StartDeviceSubscription::class,
+        ],
     ];
 
     /**
