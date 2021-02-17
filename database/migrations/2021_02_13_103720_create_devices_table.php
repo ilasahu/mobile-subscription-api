@@ -20,7 +20,7 @@ class CreateDevicesTable extends Migration
             $table->string('language')->nullable();
             $table->string('os')->nullable();
             $table->string('purchase_receipt')->nullable();
-            $table->enum('purchase_status', ['active', 'expired', 'cancelled'])->nullable();
+            $table->enum('susbcription_status', ['active', 'expired', 'cancelled'])->nullable();
             $table->timestamp('expiry_date')->nullable();
             $table->unique(array('uId', 'appId'));
             $table->timestamps();

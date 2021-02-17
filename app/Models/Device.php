@@ -14,7 +14,7 @@ class Device extends Model
     use HasFactory;
     use ValidatingTrait;
 
-    protected $fillable = ['uId', 'appId', 'language', 'os', 'purchase_receipt', 'purchase_status', 'expiry_date'];
+    protected $fillable = ['uId', 'appId', 'language', 'os', 'purchase_receipt', 'susbcription_status', 'expiry_date'];
 
 	protected $rules = [
         'uId' => 'required',

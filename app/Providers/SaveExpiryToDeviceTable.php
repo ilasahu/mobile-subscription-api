@@ -30,7 +30,7 @@ class SaveExpiryToDeviceTable
             $event->expiryDate = date("Y-m-d H:i:s", strtotime('+6 hours', strtotime($event->expiryDate)));
         }
         $event->device->expiry_date = $event->expiryDate;
-        $event->device->purchase_status = "active";
+        $event->device->susbcription_status = "active";
         $event->device->purchase_receipt = $event->receipt;
         $event->device->save();
     }
