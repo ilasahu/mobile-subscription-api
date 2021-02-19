@@ -3,6 +3,21 @@
 
 It is a laravel application which provides mobile app subscription management APIs, worker and callback. 
 
+To run this application. Please follow these steps
+```
+git clone git@github.com:ilasahu/teknasyon-app.git
+cp .env.example .env
+composer install
+php artisan key:generate
+```
+Create a database according to env database creds
+
+```
+php artisan migrate
+php artisan db:seed
+```
+
+Note: I've created few dummy records for applications, application id is required and should exist in the applications table to register a device.
 
 ## Api
 
