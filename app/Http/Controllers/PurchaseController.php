@@ -17,24 +17,19 @@ use App\AppEndpointCallback\Callback;
 class PurchaseController extends Controller
 {
 
-    public function index()
-    {
-        dd('test');
-    }
-
     public function verify(Request $request)
     {
         try {
             $response = ['status' => false];
             $request->validate(['receipt' => 'required']);
             if ($request->user()->os == "ios") {
-                $verifyHashResponse = IosGoogleApi::mockIosVerifyHash($request->receipt);
+                $verifyHashResponse = IosGoogleApi::mockIosVerifyHash($request->receipt); //mocked ios verify hash api with an internal facade
             } else {
-                $verifyHashResponse = IosGoogleApi::mockGoogleVerifyHash($request->receipt);
+                $verifyHashResponse = IosGoogleApi::mockGoogleVerifyHash($request->receipt); //mocked google verify hash api with an internal facade
             }
 
-            if ($verifyHashResponse['result']) {
-                PurchaseSuccessful::dispatch($request->user(), $verifyHashResponse['expiry_date'], $request->receipt);
+            if ($verifyHashResponse['result']) { //if the api return the result as true
+                PurchaseSuccessful::dispatch($request->user(), $verifyHashResponse['expiry_date'], $request->receipt); //dispatch an event to save the expiry date which the api returned and set susbcription status as active
                 $response = ['status' => true];
             }
 

@@ -11,10 +11,10 @@ class SubscriptionController extends Controller
     {
         $device = $request->user();
 
-        if( !empty($device->expiry_date) && $device->expiry_date <= date("Y-m-d h:i:s")) {
+        if( !empty($device->expiry_date) && $device->expiry_date <= date("Y-m-d h:i:s")) { //check ig the expiry date is smaller than now time then dispatch an event to mark the status as expired
             PurchaseExpired::dispatch($device);
         }
-        
+        // return subscription status from database
         return $device->subscription_status;
     }
 }

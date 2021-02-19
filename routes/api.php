@@ -15,12 +15,7 @@ use App\Http\Controllers\RegisterController;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::post('/register', 'App\Http\Controllers\RegisterController@index');
-Route::get('/test', 'App\Http\Controllers\PurchaseController@index');
 
 Route::middleware(['auth:sanctum'])->group(function () {
    Route::post('/verify-purchase', 'App\Http\Controllers\PurchaseController@verify');

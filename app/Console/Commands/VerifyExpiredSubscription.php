@@ -40,10 +40,11 @@ class VerifyExpiredSubscription extends Command
      */
     public function handle()
     {
+        //get the devices where the subscription status is active and is not queued, get it in 100 chunks and dispatch an event with a queueable listerner
         Device::where('subscription_status', 'active')->where('is_queued', 0)->chunk(100, function ($devices) {
             foreach ($devices as $device) {
                 SubscriptionToVerify::dispatch($device); //push event to verify
-                $device->is_queued = 1;
+                $device->is_queued = 1; //make the device as reserved
                 $device->save();
             } 
         });
