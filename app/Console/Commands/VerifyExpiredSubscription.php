@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Device;
+use App\Events\SubscriptionToVerify;
 use Illuminate\Console\Command;
 
 class VerifyExpiredSubscription extends Command
@@ -11,14 +13,15 @@ class VerifyExpiredSubscription extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'subscription-status:verify';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Verify the records of the subscriptions
+    that are expired but not cancelled in the DB';
 
     /**
      * Create a new command instance.
@@ -37,6 +40,12 @@ class VerifyExpiredSubscription extends Command
      */
     public function handle()
     {
-        return 0;
+        Device::where('subscription_status', 'active')->where('is_queued', 0)->chunk(100, function ($devices) {
+            foreach ($devices as $device) {
+                SubscriptionToVerify::dispatch($device); //push event to verify
+                $device->is_queued = 1;
+                $device->save();
+            } 
+        });
     }
 }

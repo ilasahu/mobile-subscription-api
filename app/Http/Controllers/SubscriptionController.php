@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Providers\PurchaseExpired;
+use App\Events\PurchaseExpired;
 use Illuminate\Http\Request;
 
 class SubscriptionController extends Controller
@@ -15,6 +15,6 @@ class SubscriptionController extends Controller
             PurchaseExpired::dispatch($device);
         }
         
-        return $device->susbcription_status;
+        return $device->subscription_status;
     }
 }

@@ -2,10 +2,22 @@
 
 namespace App\Providers;
 
+use App\Events\PurchaseCanceled;
+use App\Events\PurchaseExpired;
+use App\Events\PurchaseRenewed;
+use App\Events\PurchaseStarted;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
+use App\Events\PurchaseSuccessful;
+use App\Listeners\SaveExpiryToDeviceTable;
+use App\Events\SubscriptionToVerify;
+use App\Listeners\CancelDeviceSubscription;
+use App\Listeners\ChangeExpiryStatusToDeviceTable;
+use App\Listeners\RenewDeviceSubscription;
+use App\Listeners\StartDeviceSubscription;
+use App\Listeners\VerifyActiveSubscription;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -21,6 +33,10 @@ class EventServiceProvider extends ServiceProvider
 
         PurchaseSuccessful::class => [
             SaveExpiryToDeviceTable::class,
+        ],
+
+        SubscriptionToVerify::class => [
+            VerifyActiveSubscription::class,
         ],
 
         PurchaseExpired::class => [
@@ -39,6 +55,7 @@ class EventServiceProvider extends ServiceProvider
         PurchaseStarted::class => [
             StartDeviceSubscription::class,
         ],
+
     ];
 
     /**

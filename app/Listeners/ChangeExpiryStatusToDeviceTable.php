@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Providers;
+namespace App\Listeners;
 
-use App\Providers\PurchaseExpired;
+use App\Events\PurchaseExpired;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
@@ -26,6 +26,9 @@ class ChangeExpiryStatusToDeviceTable
      */
     public function handle(PurchaseExpired $event)
     {
-        //
+        if( $event->device) {
+            $event->device->subscription_status = "expired";
+            $event->device->save();
+        }
     }
 }

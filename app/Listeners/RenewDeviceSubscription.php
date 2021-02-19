@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Providers;
+namespace App\Listeners;
 
-use App\Providers\PurchaseStarted;
+use App\AppEndpointCallback\Callback;
+use App\Events\PurchaseRenewed;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class StartDeviceSubscription
+class RenewDeviceSubscription
 {
     /**
      * Create the event listener.
@@ -21,11 +22,11 @@ class StartDeviceSubscription
     /**
      * Handle the event.
      *
-     * @param  PurchaseStarted  $event
+     * @param  PurchaseRenewed  $event
      * @return void
      */
-    public function handle(PurchaseStarted $event)
+    public function handle(PurchaseRenewed $event)
     {
-        //
+        Callback::subscriptionStatusChanged($event->device, "renewed");
     }
 }
