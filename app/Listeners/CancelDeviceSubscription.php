@@ -7,7 +7,7 @@ use App\Events\PurchaseCanceled;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class CancelDeviceSubscription
+class CancelDeviceSubscription implements ShouldQueue
 {
     /**
      * Create the event listener.

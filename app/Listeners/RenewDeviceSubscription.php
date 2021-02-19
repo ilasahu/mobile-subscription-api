@@ -7,7 +7,7 @@ use App\Events\PurchaseRenewed;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class RenewDeviceSubscription
+class RenewDeviceSubscription implements ShouldQueue
 {
     /**
      * Create the event listener.

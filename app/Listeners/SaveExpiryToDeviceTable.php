@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Events\PurchaseStarted;
 use App\Events\PurchaseSuccessful;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
@@ -33,5 +34,7 @@ class SaveExpiryToDeviceTable
         $event->device->subscription_status = "active";
         $event->device->purchase_receipt = $event->receipt;
         $event->device->save();
+
+        PurchaseStarted::dispatch($event->device);
     }
 }

@@ -7,7 +7,7 @@ use App\Events\PurchaseStarted;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class StartDeviceSubscription
+class StartDeviceSubscription implements ShouldQueue
 {
     /**
      * Create the event listener.

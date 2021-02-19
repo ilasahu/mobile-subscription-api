@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Events\PurchaseSuccessful;
 use App\Events\SubscriptionToVerify;
 use App\MockApi\IosGoogleApi;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -35,7 +36,10 @@ class VerifyActiveSubscription implements ShouldQueue
             }
             if( !$verification['result']) {
                 $event->device->subscription_status = "expired";
+            } else {
+                PurchaseSuccessful::dispatch($event->device, $event->device->expiry_date, $event->device->purchase_receipt);
             }
+
             $event->device->is_queued = 0;
             $event->device->save();
         }
